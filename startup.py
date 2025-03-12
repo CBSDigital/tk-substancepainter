@@ -32,7 +32,7 @@ logger = sgtk.LogManager.get_logger(__name__)
 UNKNOWN_VERSION = "UNKNOWN_VERSION"
 
 # note that this is the same in engine.py
-MINIMUM_SUPPORTED_VERSION = "2018.3"
+MINIMUM_SUPPORTED_VERSION = "9"
 
 
 def to_new_version_system(version):
@@ -77,36 +77,17 @@ def get_file_info(filename, info):
     """
     Extract information from a file.
     """
-    import array
-    from ctypes import windll, create_string_buffer, c_uint, string_at, byref
+    import win32api
 
-    # Get size needed for buffer (0 if no info)
-    size = windll.version.GetFileVersionInfoSizeA(filename, None)
-    # If no info in file -> empty string
-    if not size:
-        return ""
+    # "C:/Program Files/Adobe/Adobe Substance 3D Painter/Adobe Substance 3D Painter.exe"
+    info =win32api.GetFileVersionInfo(filename, "\\")
 
-    # Create buffer
-    res = create_string_buffer(size)
-    # Load file informations into buffer res
-    windll.version.GetFileVersionInfoA(filename, None, size, res)
-    r = c_uint()
-    l = c_uint()
-    # Look for codepages
-    windll.version.VerQueryValueA(res, "\\VarFileInfo\\Translation", byref(r), byref(l))
-    # If no codepage -> empty string
-    if not l.value:
-        return ""
+    ms = info['FileVersionMS']
+    ls = info['FileVersionLS']
+    version = f"{win32api.HIWORD(ms)}.{win32api.LOWORD(ms)}.{win32api.HIWORD(ls)}.{win32api.LOWORD(ls)}" 
+    # '10.1.2.0'
 
-    # Take the first codepage (what else ?)
-    codepages = array.array("H", string_at(r.value, l.value))
-    codepage = tuple(codepages[:2].tolist())
-
-    # Extract information
-    windll.version.VerQueryValueA(
-        res, ("\\StringFileInfo\\%04x%04x\\" + info) % codepage, byref(r), byref(l)
-    )
-    return string_at(r.value, l.value)
+    return version
 
 
 def md5(fname):
@@ -261,6 +242,8 @@ class SubstancePainterLauncher(SoftwareLauncher):
         required_env["SGTK_SUBSTANCEPAINTER_SGTK_MODULE_PATH"] = sgtk.get_sgtk_module_path()
 
         required_env["SGTK_SUBSTANCEPAINTER_ENGINE_PORT"] = str(get_free_port())
+        
+        required_env["SHOTGUN_SKIP_QTWEBENGINEWIDGETS_IMPORT"] = "1"
 
         if file_to_open:
             # Add the file name to open to the launch environment

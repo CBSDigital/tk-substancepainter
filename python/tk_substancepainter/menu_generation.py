@@ -23,7 +23,7 @@ __author__ = "Diego Garcia Huerta"
 __email__ = "diegogh2000@gmail.com"
 
 
-from tank.platform.qt5 import QtWidgets, QtGui, QtCore, QtWebSockets, QtNetwork
+from PySide6 import QtWidgets, QtGui, QtCore , QtWebSockets, QtNetwork
 
 
 class MenuGenerator(object):
@@ -54,7 +54,7 @@ class MenuGenerator(object):
 
         self.menu_handle.activateWindow()
         self.menu_handle.raise_()
-        self.menu_handle.exec_(pos)
+        self.menu_handle.exec(pos)
 
     def create_menu(self, disabled=False):
         """
@@ -131,7 +131,7 @@ class MenuGenerator(object):
         self._add_menu_item("-- Exit Menu --", self.menu_handle, self.menu_handle.hide)
 
     def _add_divider(self, parent_menu):
-        divider = QtWidgets.QAction(parent_menu)
+        divider = QtGui.QAction(parent_menu)
         divider.setSeparator(True)
         parent_menu.addAction(divider)
         return divider
@@ -142,7 +142,7 @@ class MenuGenerator(object):
         return sub_menu
 
     def _add_menu_item(self, name, parent_menu, callback, properties=None):
-        action = QtWidgets.QAction(name, parent_menu)
+        action = QtGui.QAction(name, parent_menu)
         parent_menu.addAction(action)
         action.triggered.connect(callback)
 

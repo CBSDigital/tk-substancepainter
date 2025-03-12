@@ -9,7 +9,7 @@
 import QtQuick 2.2
 import Painter 1.0
 import Qt.labs.platform 1.0
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs 6.5
 import QtQuick.Window 2.2
 import "."
 

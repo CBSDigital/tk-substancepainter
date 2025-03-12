@@ -108,6 +108,15 @@ def start_toolkit():
     # start up toolkit logging to file
     sgtk.LogManager().initialize_base_file_handler("tk-substancepainter")
 
+    # # Debug with debugpy by uncommenting the following lines
+    # import debugpy
+
+    # # 5678 is the default attach port in the VS Code debug configurations. Unless a host and port are specified, host defaults to 127.0.0.1
+    # # debugpy.log_to("C:/Temp/debugpy.log")
+    # debugpy.listen(5678)
+    # debugpy.wait_for_client()
+    # debugpy.breakpoint()
+
     # Rely on the classic boostrapping method
     start_toolkit_classic()
 
@@ -142,6 +151,7 @@ def setup_environment():
 
 
 if __name__ == "__main__":
+
     # Fire up Toolkit and the environment engine when there's time.
     setup_environment()
     start_toolkit()
