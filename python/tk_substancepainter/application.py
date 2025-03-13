@@ -15,7 +15,7 @@ import signal
 
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
-from PySide6 import QtGui, QtCore, QtWebSockets, QtNetwork
+from sgtk.platform.qt6 import QtGui, QtCore, QtWebSockets, QtNetwork
 
 QCoreApplication = QtCore.QCoreApplication
 QUrl = QtCore.QUrl

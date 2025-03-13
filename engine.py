@@ -205,7 +205,7 @@ class SubstancePainterEngine(Engine):
         specified.
         """
         if self._qt_app_central_widget:
-            from PySide6 import QtWidgets, QtGui, QtCore
+            from sgtk.platform.qt6 import QtWidgets, QtGui, QtCore
 
             level_icon = {
                 "info": QtWidgets.QMessageBox.Information,
@@ -279,7 +279,7 @@ class SubstancePainterEngine(Engine):
 
         if self.has_ui:
             # only import QT if we have a UI
-            from sgtk.platform.qt import QtGui, QtCore
+            from sgtk.platform.qt6 import QtGui, QtCore
 
             url = QtCore.QUrl.fromLocalFile(LogManager().log_folder)
             status = QtGui.QDesktopServices.openUrl(url)
@@ -520,7 +520,7 @@ class SubstancePainterEngine(Engine):
         """
         Initializes if not done already the QT Application for the engine.
         """
-        from PySide6 import QtWidgets, QtGui
+        from sgtk.platform.qt6 import QtWidgets, QtGui
 
         if not QtWidgets.QApplication.instance():
             self._qt_app = QtWidgets.QApplication(sys.argv)
@@ -532,7 +532,7 @@ class SubstancePainterEngine(Engine):
             self._qt_app.setQuitOnLastWindowClosed(False)
 
             # Make the QApplication use the dark theme. Must be called after the QApplication is instantiated
-            # self._initialize_dark_look_and_feel()
+            self._initialize_dark_look_and_feel()
 
         else:
             self._qt_app = QtWidgets.QApplication.instance()

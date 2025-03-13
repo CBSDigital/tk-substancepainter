@@ -7,30 +7,32 @@
 
 
 import AlgWidgets.Style 1.0
-import QtQuick 2.7
-import QtQuick.Controls 1.4
-import QtQuick.Controls.Styles 1.4
+import QtQuick 6.5
+import QtQuick.Controls 6.5
+//import QtQuick.Controls.Styles 1.4
 
 Button {
   id: control
   antialiasing: true
   height: 32
   width: 32
-  tooltip: "Open Shotgun Menu"
+  
+  ToolTip {
+    text: "Open Shotgun Menu"
+  }
+  
   property var clickedPosition: null
   property bool isEngineLoaded: false
   property bool isHovered: false
 
   enabled: control.isEngineLoaded
 
-  style: ButtonStyle {
-    background: Rectangle {
-        implicitWidth: control.width
-        implicitHeight: control.height
-        color: control.isHovered ?
-          "#262626" :
-          "transparent"
-    }
+  background: Rectangle {
+      implicitWidth: control.width
+      implicitHeight: control.height
+      color: control.isHovered ?
+        "#262626" :
+        "transparent"
   }
 
   Image {

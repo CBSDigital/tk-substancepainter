@@ -6,11 +6,11 @@
 // __email__ = "diegogh2000@gmail.com"
 
 
-import QtQuick 2.2
+import QtQuick 6.5
 import Painter 1.0
 import Qt.labs.platform 1.0
 import QtQuick.Dialogs 6.5
-import QtQuick.Window 2.2
+import QtQuick.Window 6.5
 import "."
 
 
@@ -162,10 +162,15 @@ PainterPlugin
 
   function onProcessEndedCallback(result)
   {
+    log_debug("Process ended with: " + JSON.stringify(result, null, 2))
+    //result.cout)
+    
+
     // We try to keep the engine alive by restarting it if something went wrong.
-    log_warning("Shotgun Substance Painter Engine connection was lost. Restarting engine...");
     if (result.crashed)
     {
+      log_warning("Shotgun Substance Painter Engine connection was lost. Restarting engine...");
+
       bootstrapEngine();
     }
   }
@@ -534,7 +539,7 @@ PainterPlugin
   {
     id: saveSessionDialog
     title: "Save Project"
-    selectExisting : false
+    //selectExisting : false
     nameFilters: [ "Substance Painter files (*.spp)" ]
 
     onAccepted:

@@ -23,7 +23,7 @@ __author__ = "Diego Garcia Huerta"
 __email__ = "diegogh2000@gmail.com"
 
 
-from PySide6 import QtWidgets, QtGui, QtCore , QtWebSockets, QtNetwork
+from sgtk.platform.qt6 import QtWidgets, QtGui, QtCore , QtWebSockets, QtNetwork
 
 
 class MenuGenerator(object):

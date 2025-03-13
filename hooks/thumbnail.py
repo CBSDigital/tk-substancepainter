@@ -14,7 +14,7 @@ import uuid
 
 import tank
 from tank import Hook
-from sgtk.platform.qt import QtCore, QtGui
+from sgtk.platform.qt6 import QtCore, QtGui
 
 
 class ThumbnailHook(Hook):
